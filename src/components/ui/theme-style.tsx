@@ -1,0 +1,1128 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { GripHorizontal } from "lucide-react";
+import { useTheme } from "next-themes";
+import React, { useCallback, useState } from "react";
+
+import { cn } from "@/lib/utils";
+
+const Skiper26 = () => {
+  const [variant, setVariant] = useState<AnimationVariant>("rectangle");
+  const [start, setStart] = useState<AnimationStart>("bottom-up");
+  const [blur, setBlur] = useState<boolean>(false);
+  const [gifType, setGifType] = useState<"1" | "2" | "3" | "custom">("1");
+  const [gifUrl, setGifUrl] = useState<string>(
+    "https://media.giphy.com/media/KBbr4hHl9DSahKvInO/giphy.gif?cid=790b76112m5eeeydoe7et0cr3j3ekb1erunxozyshuhxx2vl&ep=v1_stickers_search&rid=giphy.gif&ct=s",
+  );
+
+  return (
+    <div className="relative flex h-full w-full flex-col items-center justify-center">
+      
+
+      <ThemeToggleButton
+        variant={variant}
+        start={start}
+        blur={blur}
+        gifUrl={gifUrl}
+      />
+      <Options
+        variant={variant}
+        start={start}
+        blur={blur}
+        gifType={gifType}
+        gifUrl={gifUrl}
+        setVariant={setVariant}
+        setStart={setStart}
+        setBlur={setBlur}
+        setGifType={setGifType}
+        setGifUrl={setGifUrl}
+      />
+    </div>
+  );
+};
+
+export { Skiper26 };
+
+const Options = ({
+  variant,
+  start,
+  blur,
+  gifType,
+  gifUrl,
+  setVariant,
+  setStart,
+  setBlur,
+  setGifType,
+  setGifUrl,
+}: {
+  variant: AnimationVariant;
+  start: AnimationStart;
+  blur: boolean;
+  gifType: "1" | "2" | "3" | "custom";
+  gifUrl: string;
+  setVariant: (variant: AnimationVariant) => void;
+  setStart: (start: AnimationStart) => void;
+  setBlur: (blur: boolean) => void;
+  setGifType: (type: "1" | "2" | "3" | "custom") => void;
+  setGifUrl: (url: string) => void;
+}) => {
+  return (
+    <motion.div
+      drag
+      className="top-30 border-foreground/10 bg-muted2 absolute right-1/2 flex w-61.25 translate-x-1/2 flex-col gap-3 rounded-3xl border p-3 backdrop-blur-sm lg:right-4 lg:translate-x-0"
+    >
+      <div className="flex items-center justify-between">
+        <span className="size-4 cursor-grab active:cursor-grabbing">
+          <GripHorizontal className="size-4 opacity-50" />
+        </span>
+
+        <p className="group flex cursor-pointer items-center justify-center gap-1 rounded-lg px-2 py-1 text-sm opacity-50">
+          Options
+        </p>
+      </div>
+
+      <div className="flex flex-col">
+        <div className="mt-1 flex justify-between py-1">
+          <p className="w-20 whitespace-nowrap text-sm opacity-50">variant :</p>
+          <div className="flex flex-wrap items-center justify-end gap-1">
+            <button
+              onClick={() => setVariant("circle")}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                variant === "circle"
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              circle
+            </button>
+            <button
+              onClick={() => setVariant("rectangle")}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                variant === "rectangle"
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              rectangle
+            </button>
+            <button
+              onClick={() => setVariant("gif")}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                variant === "gif"
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              gif
+            </button>
+            <button
+              onClick={() => setVariant("polygon")}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                variant === "polygon"
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              polygon
+            </button>
+            <button
+              onClick={() => setVariant("circle-blur")}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                variant === "circle-blur"
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              circle-blur
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-1 flex justify-between py-1">
+          <p className="w-20 whitespace-nowrap text-sm opacity-50">blur :</p>
+          <div className="flex flex-wrap items-center justify-end gap-1">
+            <button
+              onClick={() => setBlur(false)}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                !blur
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              off
+            </button>
+            <button
+              onClick={() => setBlur(true)}
+              className={cn(
+                "cursor-pointer px-1 text-sm transition-opacity",
+                blur
+                  ? "opacity-100"
+                  : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+              )}
+            >
+              on
+            </button>
+          </div>
+        </div>
+
+        {/* Show start options for circle, rectangle, polygon, and circle-blur */}
+        {(variant === "circle" ||
+          variant === "rectangle" ||
+          variant === "polygon" ||
+          variant === "circle-blur") && (
+          <div className="mt-1 flex justify-between py-1">
+            <p className="w-20 whitespace-nowrap text-sm opacity-50">start :</p>
+            <div className="flex flex-wrap items-center justify-end gap-1">
+              {/* Show center option only for circle and circle-blur */}
+              {(variant === "circle" || variant === "circle-blur") && (
+                <button
+                  onClick={() => setStart("center")}
+                  className={cn(
+                    "cursor-pointer px-1 text-sm transition-opacity",
+                    start === "center"
+                      ? "opacity-100"
+                      : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                  )}
+                >
+                  center
+                </button>
+              )}
+
+              {/* Show directional options for rectangle */}
+              {variant === "rectangle" && (
+                <>
+                  <button
+                    onClick={() => setStart("bottom-up")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "bottom-up"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    bottom-up
+                  </button>
+                  <button
+                    onClick={() => setStart("top-down")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "top-down"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    top-down
+                  </button>
+                  <button
+                    onClick={() => setStart("left-right")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "left-right"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    left-right
+                  </button>
+                  <button
+                    onClick={() => setStart("right-left")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "right-left"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    right-left
+                  </button>
+                </>
+              )}
+
+              {/* Show corner options for circle, polygon, and circle-blur variants */}
+              {(variant === "circle" ||
+                variant === "polygon" ||
+                variant === "circle-blur") && (
+                <>
+                  <button
+                    onClick={() => setStart("top-left")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "top-left"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    top-left
+                  </button>
+                  <button
+                    onClick={() => setStart("top-right")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "top-right"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    top-right
+                  </button>
+                  {/* Only show bottom corners for circle, not polygon */}
+                  {variant !== "polygon" && (
+                    <>
+                      <button
+                        onClick={() => setStart("bottom-left")}
+                        className={cn(
+                          "cursor-pointer px-1 text-sm transition-opacity",
+                          start === "bottom-left"
+                            ? "opacity-100"
+                            : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                        )}
+                      >
+                        bottom-left
+                      </button>
+                      <button
+                        onClick={() => setStart("bottom-right")}
+                        className={cn(
+                          "cursor-pointer px-1 text-sm transition-opacity",
+                          start === "bottom-right"
+                            ? "opacity-100"
+                            : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                        )}
+                      >
+                        bottom-right
+                      </button>
+                    </>
+                  )}
+                </>
+              )}
+
+              {/* Show center options for circle and circle-blur */}
+              {(variant === "circle" || variant === "circle-blur") && (
+                <>
+                  <button
+                    onClick={() => setStart("top-center")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "top-center"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    top-center
+                  </button>
+                  <button
+                    onClick={() => setStart("bottom-center")}
+                    className={cn(
+                      "cursor-pointer px-1 text-sm transition-opacity",
+                      start === "bottom-center"
+                        ? "opacity-100"
+                        : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                    )}
+                  >
+                    bottom-center
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Show gif type options only for gif variant */}
+        {variant === "gif" && (
+          <div className="mt-1 flex justify-between py-1">
+            <p className="w-20 text-sm opacity-50">gif type :</p>
+            <div className="flex flex-wrap items-center justify-end gap-1">
+              <button
+                onClick={() => {
+                  setGifType("1");
+                  setGifUrl(
+                    "https://media.giphy.com/media/KBbr4hHl9DSahKvInO/giphy.gif?cid=790b76112m5eeeydoe7et0cr3j3ekb1erunxozyshuhxx2vl&ep=v1_stickers_search&rid=giphy.gif&ct=s",
+                  );
+                }}
+                className={cn(
+                  "cursor-pointer px-1 text-sm transition-opacity",
+                  gifType === "1"
+                    ? "opacity-100"
+                    : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                )}
+              >
+                1
+              </button>
+              <button
+                onClick={() => {
+                  setGifType("2");
+                  setGifUrl(
+                    "https://media.giphy.com/media/5PncuvcXbBuIZcSiQo/giphy.gif?cid=ecf05e47j7vdjtytp3fu84rslaivdun4zvfhej6wlvl6qqsz&ep=v1_stickers_search&rid=giphy.gif&ct=s",
+                  );
+                }}
+                className={cn(
+                  "cursor-pointer px-1 text-sm transition-opacity",
+                  gifType === "2"
+                    ? "opacity-100"
+                    : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                )}
+              >
+                2
+              </button>
+              <button
+                onClick={() => {
+                  setGifType("3");
+                  setGifUrl(
+                    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3JwcXdzcHd5MW92NWprZXVpcTBtNXM5cG9obWh0N3I4NzFpaDE3byZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/WgsVx6C4N8tjy/giphy.gif",
+                  );
+                }}
+                className={cn(
+                  "cursor-pointer px-1 text-sm transition-opacity",
+                  gifType === "3"
+                    ? "opacity-100"
+                    : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                )}
+              >
+                3
+              </button>
+              <button
+                onClick={() => setGifType("custom")}
+                className={cn(
+                  "cursor-pointer px-1 text-sm transition-opacity",
+                  gifType === "custom"
+                    ? "opacity-100"
+                    : "hover:bg-foreground/10 opacity-50 hover:opacity-100",
+                )}
+              >
+                custom
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Show input only when gif variant and custom type are selected */}
+        {variant === "gif" && gifType === "custom" && (
+          <div className="mt-1 flex flex-col gap-1 py-1">
+            <p className="text-sm opacity-50">gif url :</p>
+            <input
+              type="text"
+              value={gifUrl}
+              onChange={(e) => setGifUrl(e.target.value)}
+              placeholder="Enter GIF URL"
+              className="text-foreground placeholder:text-foreground/50 w-full rounded-lg bg-transparent px-2 py-1 text-xs focus:outline-none"
+            />
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+// ///////////////////////////////////////////////////////////////////////////
+// Custom hook for theme toggle functionality
+// useThemeToggle hook ke andar sirf ye portion replace karo
+
+export const useThemeToggle = ({
+  variant = "circle",
+  start = "center",
+  blur = false,
+  gifUrl = "",
+}: {
+  variant?: AnimationVariant;
+  start?: AnimationStart;
+  blur?: boolean;
+  gifUrl?: string;
+} = {}) => {
+  const {  setTheme, resolvedTheme } = useTheme();
+
+
+  const isDark = resolvedTheme === "dark";
+
+  const styleId = "theme-transition-styles";
+
+  const updateStyles = useCallback((css: string) => {
+    if (typeof window === "undefined") return;
+
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+
+    styleElement.textContent = css;
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    const animation = createAnimation(variant, start, blur, gifUrl);
+
+    updateStyles(animation.css);
+
+    const switchTheme = () => {
+      setTheme(isDark ? "light" : "dark");
+    };
+
+    if (!document.startViewTransition) {
+      switchTheme();
+      return;
+    }
+
+    document.startViewTransition(switchTheme);
+  }, [isDark, setTheme, variant, start, blur, gifUrl, updateStyles]);
+
+  const setCrazyLightTheme = useCallback(() => {
+    const animation = createAnimation(variant, start, blur, gifUrl);
+    updateStyles(animation.css);
+    setTheme("light");
+  }, [setTheme, variant, start, blur, gifUrl, updateStyles]);
+
+  const setCrazyDarkTheme = useCallback(() => {
+    const animation = createAnimation(variant, start, blur, gifUrl);
+    updateStyles(animation.css);
+    setTheme("dark");
+  }, [setTheme, variant, start, blur, gifUrl, updateStyles]);
+
+  const setCrazySystemTheme = useCallback(() => {
+    const animation = createAnimation(variant, start, blur, gifUrl);
+    updateStyles(animation.css);
+    setTheme("system");
+  }, [setTheme, variant, start, blur, gifUrl, updateStyles]);
+
+  return {
+    isDark,
+    toggleTheme,
+    setCrazyLightTheme,
+    setCrazyDarkTheme,
+    setCrazySystemTheme,
+  };
+};
+
+// ///////////////////////////////////////////////////////////////////////////
+
+export const ThemeToggleButton = ({
+  className = "",
+  variant = "circle",
+  start = "center",
+  blur = false,
+  gifUrl = "",
+}: {
+  className?: string;
+  variant?: AnimationVariant;
+  start?: AnimationStart;
+  blur?: boolean;
+  gifUrl?: string;
+}) => {
+  const { isDark, toggleTheme } = useThemeToggle({
+    variant,
+    start,
+    blur,
+    gifUrl,
+  });
+
+  return (
+    <button
+      type="button"
+       className={cn(
+        "w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 active:scale-95",
+        isDark
+          ? "bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700"
+          : "bg-zinc-100 border-zinc-200 text-zinc-900 hover:bg-white",
+        className
+      )}
+      onClick={toggleTheme}
+      aria-label="Toggle theme"
+    >
+
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        fill="currentColor"
+        strokeLinecap="round"
+        viewBox="0 0 32 32"
+        width="18"
+        height="18"
+        className="w-5 h-5"
+      >
+        <clipPath id="skiper-btn-3">
+          <motion.path
+            animate={{ y: isDark ? 14 : 0, x: isDark ? -11 : 0 }}
+            transition={{ ease: "easeInOut", duration: 0.35 }}
+            d="M0-11h25a1 1 0 0017 13v30H0Z"
+          />
+        </clipPath>
+
+        <g clipPath="url(#skiper-btn-3)">
+          <motion.circle
+            animate={{ r: isDark ? 10 : 8 }}
+            transition={{ ease: "easeInOut", duration: 0.35 }}
+            cx="16"
+            cy="16"
+          />
+
+          <motion.g
+            animate={{
+              scale: isDark ? 0.5 : 1,
+              opacity: isDark ? 0 : 1,
+            }}
+            transition={{ ease: "easeInOut", duration: 0.35 }}
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path d="M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s-1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z" />
+          </motion.g>
+        </g>
+      </svg>
+    </button>
+  );
+};
+
+// ///////////////////////////////////////////////////////////////////////////
+
+export type AnimationVariant =
+  | "circle"
+  | "rectangle"
+  | "gif"
+  | "polygon"
+  | "circle-blur";
+export type AnimationStart =
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "center"
+  | "top-center"
+  | "bottom-center"
+  | "bottom-up"
+  | "top-down"
+  | "left-right"
+  | "right-left";
+
+interface Animation {
+  name: string;
+  css: string;
+}
+
+const getPositionCoords = (position: AnimationStart) => {
+  switch (position) {
+    case "top-left":
+      return { cx: "0", cy: "0" };
+    case "top-right":
+      return { cx: "40", cy: "0" };
+    case "bottom-left":
+      return { cx: "0", cy: "40" };
+    case "bottom-right":
+      return { cx: "40", cy: "40" };
+    case "top-center":
+      return { cx: "20", cy: "0" };
+    case "bottom-center":
+      return { cx: "20", cy: "40" };
+    // For directional positions, default to center (these are used for rectangle variant)
+    case "bottom-up":
+    case "top-down":
+    case "left-right":
+    case "right-left":
+      return { cx: "20", cy: "20" };
+  }
+};
+
+const generateSVG = (variant: AnimationVariant, start: AnimationStart) => {
+  // circle-blur variant handles center case differently, so check it first
+  if (variant === "circle-blur") {
+    if (start === "center") {
+      return `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="20" cy="20" r="18" fill="white" filter="url(%23blur)"/></svg>`;
+    }
+    const positionCoords = getPositionCoords(start);
+    if (!positionCoords) {
+      throw new Error(`Invalid start position: ${start}`);
+    }
+    const { cx, cy } = positionCoords;
+    return `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="${cx}" cy="${cy}" r="18" fill="white" filter="url(%23blur)"/></svg>`;
+  }
+
+  if (start === "center") return;
+
+  // Rectangle variant doesn't use SVG masks, so return early
+  if (variant === "rectangle") return "";
+
+  const positionCoords = getPositionCoords(start);
+  if (!positionCoords) {
+    throw new Error(`Invalid start position: ${start}`);
+  }
+  const { cx, cy } = positionCoords;
+
+  if (variant === "circle") {
+    return `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="${cx}" cy="${cy}" r="20" fill="white"/></svg>`;
+  }
+
+  return "";
+};
+
+const getTransformOrigin = (start: AnimationStart) => {
+  switch (start) {
+    case "top-left":
+      return "top left";
+    case "top-right":
+      return "top right";
+    case "bottom-left":
+      return "bottom left";
+    case "bottom-right":
+      return "bottom right";
+    case "top-center":
+      return "top center";
+    case "bottom-center":
+      return "bottom center";
+    // For directional positions, default to center
+    case "bottom-up":
+    case "top-down":
+    case "left-right":
+    case "right-left":
+      return "center";
+  }
+};
+
+export const createAnimation = (
+  variant: AnimationVariant,
+  start: AnimationStart = "center",
+  blur = false,
+  url?: string,
+): Animation => {
+  const svg = generateSVG(variant, start);
+  const transformOrigin = getTransformOrigin(start);
+
+  if (variant === "rectangle") {
+    const getClipPath = (direction: AnimationStart) => {
+      switch (direction) {
+        case "bottom-up":
+          return {
+            from: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "top-down":
+          return {
+            from: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "left-right":
+          return {
+            from: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "right-left":
+          return {
+            from: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "top-left":
+          return {
+            from: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "top-right":
+          return {
+            from: "polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "bottom-left":
+          return {
+            from: "polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        case "bottom-right":
+          return {
+            from: "polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+        default:
+          return {
+            from: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+            to: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          };
+      }
+    };
+
+    const clipPath = getClipPath(start);
+
+    return {
+      name: `${variant}-${start}${blur ? "-blur" : ""}`,
+      css: `
+       ::view-transition-group(root) {
+        animation-duration: 0.7s;
+        animation-timing-function: var(--expo-out);
+      }
+            
+      ::view-transition-new(root) {
+        animation-name: reveal-light-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: none;
+        z-index: -1;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      @keyframes reveal-dark-${start}${blur ? "-blur" : ""} {
+        from {
+          clip-path: ${clipPath.from};
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: ${clipPath.to};
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+
+      @keyframes reveal-light-${start}${blur ? "-blur" : ""} {
+        from {
+          clip-path: ${clipPath.from};
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: ${clipPath.to};
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+      `,
+    };
+  }
+  if (variant === "circle" && start == "center") {
+    return {
+      name: `${variant}-${start}${blur ? "-blur" : ""}`,
+      css: `
+       ::view-transition-group(root) {
+        animation-duration: 0.7s;
+        animation-timing-function: var(--expo-out);
+      }
+            
+      ::view-transition-new(root) {
+        animation-name: reveal-light${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: none;
+        z-index: -1;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      @keyframes reveal-dark${blur ? "-blur" : ""} {
+        from {
+          clip-path: circle(0% at 50% 50%);
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: circle(100.0% at 50% 50%);
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+
+      @keyframes reveal-light${blur ? "-blur" : ""} {
+        from {
+           clip-path: circle(0% at 50% 50%);
+           ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: circle(100.0% at 50% 50%);
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+      `,
+    };
+  }
+  if (variant === "gif") {
+    return {
+      name: `${variant}-${start}`,
+      css: `
+      ::view-transition-group(root) {
+  animation-timing-function: var(--expo-in);
+}
+
+::view-transition-new(root) {
+  mask: url('${url}') center / 0 no-repeat;
+  animation: scale 3s;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+  animation: scale 3s;
+}
+
+@keyframes scale {
+  0% {
+    mask-size: 0;
+  }
+  10% {
+    mask-size: 50vmax;
+  }
+  90% {
+    mask-size: 50vmax;
+  }
+  100% {
+    mask-size: 2000vmax;
+  }
+}`,
+    };
+  }
+
+  if (variant === "circle-blur") {
+    if (start === "center") {
+      return {
+        name: `${variant}-${start}`,
+        css: `
+        ::view-transition-group(root) {
+          animation-timing-function: var(--expo-out);
+        }
+
+        ::view-transition-new(root) {
+          mask: url('${svg}') center / 0 no-repeat;
+          mask-origin: content-box;
+          animation: scale 1s;
+          transform-origin: center;
+        }
+
+        ::view-transition-old(root),
+        .dark::view-transition-old(root) {
+          animation: scale 1s;
+          transform-origin: center;
+          z-index: -1;
+        }
+
+        @keyframes scale {
+          to {
+            mask-size: 350vmax;
+          }
+        }
+        `,
+      };
+    }
+
+    return {
+      name: `${variant}-${start}`,
+      css: `
+      ::view-transition-group(root) {
+        animation-timing-function: var(--expo-out);
+      }
+
+      ::view-transition-new(root) {
+        mask: url('${svg}') ${start.replace("-", " ")} / 0 no-repeat;
+        mask-origin: content-box;
+        animation: scale 1s;
+        transform-origin: ${transformOrigin};
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: scale 1s;
+        transform-origin: ${transformOrigin};
+        z-index: -1;
+      }
+
+      @keyframes scale {
+        to {
+          mask-size: 350vmax;
+        }
+      }
+      `,
+    };
+  }
+
+  if (variant === "polygon") {
+    const getPolygonClipPaths = (position: AnimationStart) => {
+      switch (position) {
+        case "top-left":
+          return {
+            darkFrom: "polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%)",
+            darkTo: "polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%)",
+            lightFrom: "polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%)",
+            lightTo: "polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%)",
+          };
+        case "top-right":
+          return {
+            darkFrom: "polygon(150% -71%, 250% 71%, 250% 71%, 150% -71%)",
+            darkTo: "polygon(150% -71%, 250% 71%, 50% 171%, -71% 50%)",
+            lightFrom: "polygon(-71% 50%, 50% 171%, 50% 171%, -71% 50%)",
+            lightTo: "polygon(-71% 50%, 50% 171%, 250% 71%, 150% -71%)",
+          };
+        default:
+          // Default to top-left behavior
+          return {
+            darkFrom: "polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%)",
+            darkTo: "polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%)",
+            lightFrom: "polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%)",
+            lightTo: "polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%)",
+          };
+      }
+    };
+
+    const clipPaths = getPolygonClipPaths(start);
+
+    return {
+      name: `${variant}-${start}${blur ? "-blur" : ""}`,
+      css: `
+      ::view-transition-group(root) {
+        animation-duration: 0.7s;
+        animation-timing-function: var(--expo-out);
+      }
+            
+      ::view-transition-new(root) {
+        animation-name: reveal-light-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: none;
+        z-index: -1;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      @keyframes reveal-dark-${start}${blur ? "-blur" : ""} {
+        from {
+          clip-path: ${clipPaths.darkFrom};
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: ${clipPaths.darkTo};
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+
+      @keyframes reveal-light-${start}${blur ? "-blur" : ""} {
+        from {
+          clip-path: ${clipPaths.lightFrom};
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: ${clipPaths.lightTo};
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+      `,
+    };
+  }
+
+  // Handle circle variants with start positions using clip-path
+  if (variant === "circle" && start !== "center") {
+    const getClipPathPosition = (position: AnimationStart) => {
+      switch (position) {
+        case "top-left":
+          return "0% 0%";
+        case "top-right":
+          return "100% 0%";
+        case "bottom-left":
+          return "0% 100%";
+        case "bottom-right":
+          return "100% 100%";
+        case "top-center":
+          return "50% 0%";
+        case "bottom-center":
+          return "50% 100%";
+        default:
+          return "50% 50%";
+      }
+    };
+
+    const clipPosition = getClipPathPosition(start);
+
+    return {
+      name: `${variant}-${start}${blur ? "-blur" : ""}`,
+      css: `
+       ::view-transition-group(root) {
+        animation-duration: 1s;
+        animation-timing-function: var(--expo-out);
+      }
+            
+      ::view-transition-new(root) {
+        animation-name: reveal-light-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: none;
+        z-index: -1;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark-${start}${blur ? "-blur" : ""};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+
+      @keyframes reveal-dark-${start}${blur ? "-blur" : ""} {
+        from {
+          clip-path: circle(0% at ${clipPosition});
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: circle(150.0% at ${clipPosition});
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+
+      @keyframes reveal-light-${start}${blur ? "-blur" : ""} {
+        from {
+           clip-path: circle(0% at ${clipPosition});
+           ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          clip-path: circle(150.0% at ${clipPosition});
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+      `,
+    };
+  }
+
+  return {
+    name: `${variant}-${start}${blur ? "-blur" : ""}`,
+    css: `
+      ::view-transition-group(root) {
+        animation-timing-function: var(--expo-in);
+      }
+      ::view-transition-new(root) {
+        mask: url('${svg}') ${start.replace("-", " ")} / 0 no-repeat;
+        mask-origin: content-box;
+        animation: scale-${start}${blur ? "-blur" : ""} 1s;
+        transform-origin: ${transformOrigin};
+        ${blur ? "filter: blur(2px);" : ""}
+      }
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: scale-${start}${blur ? "-blur" : ""} 1s;
+        transform-origin: ${transformOrigin};
+        z-index: -1;
+      }
+      @keyframes scale-${start}${blur ? "-blur" : ""} {
+        from {
+          ${blur ? "filter: blur(8px);" : ""}
+        }
+        ${blur ? "50% { filter: blur(4px); }" : ""}
+        to {
+          mask-size: 2000vmax;
+          ${blur ? "filter: blur(0px);" : ""}
+        }
+      }
+    `,
+  };
+};
+
