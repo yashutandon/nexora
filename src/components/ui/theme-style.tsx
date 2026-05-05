@@ -528,7 +528,7 @@ export const ThemeToggleButton = ({
         "w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 active:scale-95",
         isDark
           ? "bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700"
-          : "bg-zinc-100 border-zinc-200 text-zinc-900 hover:bg-white",
+          : "bg-zinc-100 border-zinc-200 text-zinc-700 hover:bg-white",
         className
       )}
       onClick={toggleTheme}

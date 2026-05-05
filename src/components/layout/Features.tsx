@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useInView, Variants } from "framer-motion"
-import { Zap, Moon, Code2, Puzzle, Shield, Feather } from "lucide-react"
+import { Moon, Code2, Puzzle, Shield, Feather, Zap } from "lucide-react"
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -13,16 +13,66 @@ const fadeUp: Variants = {
   }),
 }
 
+const FEATURES = [
+  {
+    num: "01",
+    accent: "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400",
+    icon: <Zap size={14} strokeWidth={2} />,
+    title: "Lightning fast",
+    desc: "Optimized for performance. Every component is tree-shakeable and zero-runtime by default.",
+    delay: 0.1,
+  },
+  {
+    num: "02",
+    accent: "bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400",
+    icon: <Moon size={14} strokeWidth={2} />,
+    title: "Dark mode native",
+    desc: "Ships with dark mode out of the box. No extra classes, no extra effort.",
+    delay: 0.16,
+  },
+  {
+    num: "03",
+    accent: "bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400",
+    icon: <Code2 size={14} strokeWidth={2} />,
+    title: "TypeScript first",
+    desc: "Fully typed. Your editor knows everything before you do.",
+    delay: 0.22,
+  },
+  {
+    num: "04",
+    accent: "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    icon: <Puzzle size={14} strokeWidth={2} />,
+    title: "Composable",
+    desc: "Mix, extend, override — nothing locked behind an abstraction.",
+    delay: 0.28,
+  },
+  {
+    num: "05",
+    accent: "bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    icon: <Shield size={14} strokeWidth={2} />,
+    title: "Accessible by default",
+    desc: "ARIA roles, keyboard nav, focus management — baked in.",
+    delay: 0.34,
+  },
+  {
+    num: "06",
+    accent: "bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400",
+    icon: <Feather size={14} strokeWidth={2} />,
+    title: "Tailwind v4 native",
+    desc: "No CSS-in-JS, no runtime overhead. Just utility classes that scale with your codebase.",
+    delay: 0.4,
+  },
+]
+
 const FeaturesSection = () => {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
     <section className="relative w-full flex justify-center px-4 sm:px-6 lg:px-8">
-      <div
-        ref={ref}
-        className="w-full max-w-6xl pt-10 sm:pt-14 pb-20 sm:pb-28"
-      >
+      <div ref={ref} className="w-full max-w-6xl pt-10 sm:pt-14 pb-20 sm:pb-28">
+
+        {/* Label */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -36,6 +86,7 @@ const FeaturesSection = () => {
           </span>
         </motion.div>
 
+        {/* Heading + Subtext */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-end mb-16">
           <motion.h2
             variants={fadeUp}
@@ -61,31 +112,32 @@ const FeaturesSection = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          {[
-            { col: "sm:col-span-5", num: "01", accent: "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400", icon: <Zap size={14} strokeWidth={2} />, title: "Instant copy-paste", desc: "Every component is self-contained. Copy, paste, ship. No wiring, no config, no surprises.", delay: 0.1, h: "min-h-[220px]" },
-            { col: "sm:col-span-4", num: "02", accent: "bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400", icon: <Moon size={14} strokeWidth={2} />, title: "Dark mode native", desc: "Ships with dark mode out of the box. No extra classes, no extra effort.", delay: 0.16, h: "min-h-[220px]" },
-            { col: "sm:col-span-3", num: "03", accent: "bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400", icon: <Code2 size={14} strokeWidth={2} />, title: "TypeScript first", desc: "Fully typed. Your editor knows everything before you do.", delay: 0.22, h: "min-h-[220px]" },
-            { col: "sm:col-span-3", num: "04", accent: "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400", icon: <Puzzle size={14} strokeWidth={2} />, title: "Composable", desc: "Mix, extend, override — nothing locked behind an abstraction.", delay: 0.28, h: "min-h-[200px]" },
-            { col: "sm:col-span-4", num: "05", accent: "bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400", icon: <Shield size={14} strokeWidth={2} />, title: "Accessible by default", desc: "ARIA roles, keyboard nav, focus management — baked in.", delay: 0.34, h: "min-h-[200px]" },
-            { col: "sm:col-span-5", num: "06", accent: "bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400", icon: <Feather size={14} strokeWidth={2} />, title: "Tailwind v4 native", desc: "No CSS-in-JS, no runtime overhead. Just utility classes that scale with your codebase.", delay: 0.4, h: "min-h-[200px]" },
-          ].map((f) => (
+        {/* Feature Cards — uniform 1 / 2 / 3 column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {FEATURES.map((f) => (
             <motion.div
               key={f.num}
               variants={fadeUp}
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
               custom={f.delay}
-              className={`${f.col} ${f.h} group relative rounded-2xl border border-black/[0.07] dark:border-white/[0.07] bg-white dark:bg-zinc-900 p-7 flex flex-col justify-between gap-10 overflow-hidden hover:border-black/12 dark:hover:border-white/12 transition-all duration-300`}
+              className="group relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl border border-black/[0.07] dark:border-white/[0.07] bg-white dark:bg-zinc-900 p-7 transition-all duration-300 hover:border-black/[0.12] dark:hover:border-white/[0.12]"
             >
+              {/* Ghost number watermark */}
               <span
                 style={{ fontFamily: "var(--font-cormorant)" }}
-                className="absolute -bottom-4 -right-2 text-[120px] font-semibold leading-none text-zinc-100 dark:text-zinc-800 select-none pointer-events-none transition-all duration-300 group-hover:text-zinc-200 dark:group-hover:text-zinc-700"
+                className="pointer-events-none select-none absolute -bottom-4 -right-2 text-[120px] font-semibold leading-none text-zinc-100 dark:text-zinc-800 transition-all duration-300 group-hover:text-zinc-200 dark:group-hover:text-zinc-700"
               >
                 {f.num}
               </span>
-              <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${f.accent}`}>{f.icon}</span>
-              <div className="flex flex-col gap-2 relative z-10">
+
+              {/* Icon */}
+              <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${f.accent}`}>
+                {f.icon}
+              </span>
+
+              {/* Text */}
+              <div className="relative z-10 flex flex-col gap-2">
                 <h3 className="text-[16px] font-semibold text-zinc-900 dark:text-zinc-100">{f.title}</h3>
                 <p className="text-[13.5px] text-zinc-500 dark:text-zinc-400 leading-relaxed">{f.desc}</p>
               </div>
@@ -93,6 +145,7 @@ const FeaturesSection = () => {
           ))}
         </div>
 
+        {/* Stats bar */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -102,7 +155,7 @@ const FeaturesSection = () => {
         >
           {[
             { val: "120+", label: "Components" },
-            { val: "40+", label: "Templates" },
+            { val: "40+",  label: "Templates" },
             { val: "12k+", label: "Downloads" },
             { val: "100%", label: "Open source" },
           ].map((s, i) => (
@@ -110,16 +163,19 @@ const FeaturesSection = () => {
               <div className="flex flex-col">
                 <span
                   style={{ fontFamily: "var(--font-cormorant)" }}
-                  className="text-[32px] font-semibold text-zinc-900 dark:text-zinc-100 leading-none"
+                  className="text-[32px] font-semibold leading-none text-zinc-900 dark:text-zinc-100"
                 >
                   {s.val}
                 </span>
-                <span className="text-[12px] text-zinc-400 dark:text-zinc-500 mt-0.5">{s.label}</span>
+                <span className="mt-0.5 text-[12px] text-zinc-400 dark:text-zinc-500">{s.label}</span>
               </div>
-              {i < 3 && <span className="hidden sm:block w-px h-8 bg-black/[0.07] dark:bg-white/[0.07] ml-4" />}
+              {i < 3 && (
+                <span className="ml-4 hidden h-8 w-px bg-black/[0.07] dark:bg-white/[0.07] sm:block" />
+              )}
             </div>
           ))}
         </motion.div>
+
       </div>
     </section>
   )

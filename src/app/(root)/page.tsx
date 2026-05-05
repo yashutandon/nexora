@@ -1,3 +1,4 @@
+import ComponentShowcase from "@/components/layout/ComponentShowcase";
 import FeaturesSection from "@/components/layout/Features";
 import HeroSection from "@/components/layout/HeroSection";
 import HowItWorksSection from "@/components/layout/HowItsWork";
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <HowItWorksSection/>
+      <ComponentShowcase/>
     </main>
   );
 }
