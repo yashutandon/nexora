@@ -121,7 +121,7 @@ const FeaturesSection = () => {
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
               custom={f.delay}
-              className="group relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl border border-black/[0.07] dark:border-white/[0.07] bg-white dark:bg-zinc-900 p-7 transition-all duration-300 hover:border-black/[0.12] dark:hover:border-white/[0.12]"
+              className="group relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl border border-black/[0.07] dark:border-white/[0.07] bg-white dark:bg-zinc-900 p-7 transition-all duration-300 hover:border-black/12 dark:hover:border-white/12"
             >
               {/* Ghost number watermark */}
               <span
