@@ -38,17 +38,17 @@ const Header = () => {
 
   return (
     <div className="sticky top-0 left-0 right-0 z-50">
-      <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-center">
+      <div className="w-full  flex justify-center">
         <div
           className={`
-            w-full max-w-6xl
-            rounded-b-2xl border-b border-x
+            w-full max-w-full
+            border-b border-x
             transition-all duration-300 ease-in-out
             ${scrolled
               ? "border-black/10 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-black/20"
               : "border-black/6 dark:border-white/6"
             }
-            bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md
+            bg-white/90 dark:bg-zinc-900 backdrop-blur-md
           `}
         >
           <div className="flex items-center justify-between px-4 sm:px-5 h-14">

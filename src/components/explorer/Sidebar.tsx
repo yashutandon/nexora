@@ -36,21 +36,18 @@ const SidebarSection = memo(({
     <div>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-between w-full px-3 py-2 text-[11px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors duration-150 group"
+        className="flex items-center justify-between w-full px-3 py-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors duration-150"
         aria-expanded={open}
       >
         {category.label}
         <ChevronDown
-          size={12}
-          className={cn(
-            "transition-transform duration-200",
-            open ? "rotate-0" : "-rotate-90"
-          )}
+          size={11}
+          className={cn("transition-transform duration-200 text-zinc-300 dark:text-zinc-700", open ? "rotate-0" : "-rotate-90")}
         />
       </button>
 
       {open && (
-        <ul role="list" className="mt-0.5 flex flex-col gap-0.5">
+        <ul role="list" className="mt-0.5 flex flex-col gap-px">
           {category.components.map((comp) => {
             const isActive = activeId === comp.id
             return (
@@ -58,17 +55,18 @@ const SidebarSection = memo(({
                 <Link
                   href={`/components?id=${comp.id}`}
                   className={cn(
-                    "flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all duration-150",
+                    "flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all duration-150",
                     isActive
                       ? "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400"
                       : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-200"
                   )}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {isActive && (
-                    <span className="w-1 h-1 rounded-full bg-red-500 shrink-0" />
-                  )}
-                  {comp.name}
+                  {isActive
+                    ? <span className="w-1 h-1 rounded-full bg-red-500 shrink-0" />
+                    : <span className="w-1 h-1 rounded-full bg-transparent shrink-0" />
+                  }
+                  <span className="truncate">{comp.name}</span>
                 </Link>
               </li>
             )
@@ -87,11 +85,11 @@ export const Sidebar = () => {
 
   return (
     <aside
-      className="w-60 shrink-0 h-screen border-r border-black/8 dark:border-white/8 bg-white dark:bg-zinc-950 flex flex-col overflow-hidden"
+      className="w-[220px] shrink-0 h-screen border-r border-zinc-200 dark:border-white/[0.07] bg-white dark:bg-zinc-950 flex flex-col overflow-hidden"
       aria-label="Component navigation"
     >
       {/* Brand */}
-      <div className="flex items-center gap-2.5 px-4 py-3.5 border-b border-black/6 dark:border-white/6">
+      <div className="flex items-center gap-2.5 px-4 h-14 border-b border-zinc-200 dark:border-white/[0.07] shrink-0">
         <span className="flex items-center justify-center w-6 h-6 rounded-md bg-red-600 dark:bg-red-500 text-white shrink-0">
           <Flame size={12} strokeWidth={2.5} />
         </span>
@@ -101,14 +99,14 @@ export const Sidebar = () => {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-5 scrollbar-thin">
+      <nav className="flex-1 overflow-y-auto py-4 px-2 flex flex-col gap-5 no-scrollbar">
         {sidebarCategories.map((cat) => (
           <SidebarSection key={cat.id} category={cat} activeId={activeId} />
         ))}
       </nav>
 
       {/* Footer */}
-      <div className="px-4 py-3 border-t border-black/6 dark:border-white/6">
+      <div className="px-4 py-3 border-t border-zinc-200 dark:border-white/[0.07] shrink-0">
         <p className="text-[11px] text-zinc-400 dark:text-zinc-600">
           v2.4.0 · 120+ components
         </p>

@@ -1473,7 +1473,7 @@ export default function HowItWorksSection() {
 
   return (
     <section className="relative flex w-full justify-center px-4 sm:px-6 lg:px-8">
-      <div ref={ref} className="w-full max-w-6xl pb-20 pt-10 sm:pb-28 sm:pt-14">
+      <div ref={ref} className="w-full max-w-7xl pb-20 pt-10 sm:pb-28 sm:pt-14">
 
         {/* Section label */}
         <motion.div

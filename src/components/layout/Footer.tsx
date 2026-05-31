@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <footer className="mt-auto border-t border-black/6 dark:border-white/6">
       <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-center">
-        <div className="w-full max-w-6xl py-12">
+        <div className="w-full max-w-7xl py-12">
 
           {/* Top section */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mb-12">

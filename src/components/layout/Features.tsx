@@ -70,7 +70,7 @@ const FeaturesSection = () => {
 
   return (
     <section className="relative w-full flex justify-center px-4 sm:px-6 lg:px-8">
-      <div ref={ref} className="w-full max-w-6xl pt-10 sm:pt-14 pb-20 sm:pb-28">
+      <div ref={ref} className="w-full max-w-7xl pt-10 sm:pt-14 pb-20 sm:pb-28">
 
         {/* Label */}
         <motion.div
@@ -126,7 +126,7 @@ const FeaturesSection = () => {
               {/* Ghost number watermark */}
               <span
                 style={{ fontFamily: "var(--font-cormorant)" }}
-                className="pointer-events-none select-none absolute -bottom-4 -right-2 text-[120px] font-semibold leading-none text-zinc-100 dark:text-zinc-800 transition-all duration-300 group-hover:text-zinc-200 dark:group-hover:text-zinc-700"
+                className="pointer-events-none select-none absolute top-0 right-0 text-[120px] font-semibold leading-none text-zinc-100 dark:text-zinc-800 transition-all duration-300 group-hover:text-zinc-200 dark:group-hover:text-zinc-700"
               >
                 {f.num}
               </span>
@@ -155,7 +155,7 @@ const FeaturesSection = () => {
         >
           {[
             { val: "120+", label: "Components" },
-            { val: "40+",  label: "Templates" },
+            { val: "40+", label: "Templates" },
             { val: "12k+", label: "Downloads" },
             { val: "100%", label: "Open source" },
           ].map((s, i) => (
