@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: {
     template: "Nexaura UI — %s",
@@ -13,5 +14,11 @@ export default function RootGroupLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
 }

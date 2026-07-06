@@ -1,0 +1,3 @@
+src/components/preview/ResizablePreview.tsx(17,13): error TS2322: Type '{ children: Element[]; direction: string; className: string; }' is not assignable to type 'IntrinsicAttributes & HTMLAttributes<HTMLDivElement> & { children?: ReactNode; className?: string | undefined; ... 10 more ...; style?: CSSProperties | undefined; }'.
+  Property 'direction' does not exist on type 'IntrinsicAttributes & HTMLAttributes<HTMLDivElement> & { children?: ReactNode; className?: string | undefined; ... 10 more ...; style?: CSSProperties | undefined; }'.
+

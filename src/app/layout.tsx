@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
-import Header from "@/components/layout/Header";
 import { ThemeProvider } from "next-themes";
-import Footer from "@/components/layout/Footer";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -38,10 +36,7 @@ export default function RootLayout({
       >
         <body className="min-h-full flex flex-col bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-sans">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <Header />
-            
             {children}
-            <Footer/>
           </ThemeProvider>
         </body>
       </html>

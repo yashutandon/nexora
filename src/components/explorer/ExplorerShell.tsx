@@ -4,8 +4,10 @@ import { useState, memo } from "react"
 import { components } from "@/config/components"
 import { Category, SidebarCategory } from "@/types/components"
 import { ComponentView } from "@/components/explorer/ComponentView"
-import { ChevronDown, Flame } from "lucide-react"
+import { ChevronDown, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { NexoraLogo } from "@/components/ui/NexoraLogo"
+import Link from "next/link"
 
 const CATEGORIES: { id: Category; label: string }[] = [
   { id: "generic",  label: "Generic"  },
@@ -34,51 +36,36 @@ const SidebarSection = memo(({
 }) => {
   const [open, setOpen] = useState(true)
 
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-between w-full px-3 py-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors duration-150"
-        aria-expanded={open}
-      >
-        {category.label}
-        <ChevronDown
-          size={11}
-          className={cn("transition-transform duration-200 text-zinc-300 dark:text-zinc-700", open ? "rotate-0" : "-rotate-90")}
-        />
-      </button>
+  if (category.components.length === 0) return null
 
-      {open && (
-        <ul role="list" className="mt-0.5 flex flex-col gap-px">
-          {category.components.map((comp) => {
-            const isActive = activeId === comp.id
-            return (
-              <li key={comp.id}>
-                <button
-                  onClick={() => onSelect(comp.id)}
-                  className={cn(
-                    "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all duration-150 text-left",
-                    isActive
-                      ? "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400"
-                      : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-200"
-                  )}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {isActive
-                    ? <span className="w-1 h-1 rounded-full bg-red-500 shrink-0" />
-                    : <span className="w-1 h-1 rounded-full bg-transparent shrink-0" />
-                  }
-                  <span className="truncate">{comp.name}</span>
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      )}
+  return (
+    <div className="mb-6">
+      <h4 className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+        {category.label}
+      </h4>
+      <ul className="space-y-0.5">
+        {category.components.map((comp) => {
+          const isActive = activeId === comp.id
+          return (
+            <li key={comp.id}>
+              <button
+                onClick={() => onSelect(comp.id)}
+                className={cn(
+                  "w-full flex items-center justify-between px-3 py-1.5 rounded-md text-sm font-medium transition-colors text-left",
+                  isActive
+                    ? "bg-zinc-100 dark:bg-white/10 text-zinc-900 dark:text-white"
+                    : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 hover:text-zinc-900 dark:hover:text-zinc-100"
+                )}
+              >
+                {comp.name}
+              </button>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 })
-
 SidebarSection.displayName = "SidebarSection"
 
 // ── Shell ────────────────────────────────────────────────────────────────────
@@ -87,25 +74,36 @@ export const ExplorerShell = () => {
   const active = components.find((c) => c.id === activeId) ?? components[0]
 
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-50 dark:bg-zinc-950">
-
+    <div className="flex h-screen overflow-hidden bg-white dark:bg-black font-sans">
+      
       {/* Sidebar */}
-      <aside
-        className="w-[220px] shrink-0 flex flex-col border-r border-zinc-200 dark:border-white/[0.07] bg-white dark:bg-zinc-950"
-        aria-label="Component navigation"
-      >
-        {/* Brand */}
-        <div className="flex items-center gap-2.5 px-4 h-14 border-b border-zinc-200 dark:border-white/[0.07] shrink-0">
-          <span className="flex items-center justify-center w-6 h-6 rounded-md bg-red-600 dark:bg-red-500 text-white shrink-0">
-            <Flame size={12} strokeWidth={2.5} />
-          </span>
-          <span className="text-[13.5px] font-semibold text-zinc-900 dark:text-zinc-50 tracking-tight">
-            Nexora <span className="text-red-500 font-bold">/ui</span>
-          </span>
+      <aside className="w-[280px] shrink-0 border-r border-zinc-200 dark:border-white/10 bg-zinc-50/50 dark:bg-black flex flex-col">
+        {/* Brand Header */}
+        <div className="h-16 flex items-center px-6 border-b border-zinc-200 dark:border-white/10 shrink-0">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div className="w-6 h-6">
+              <NexoraLogo className="w-full h-full" />
+            </div>
+            <span className="font-bold tracking-tight text-zinc-900 dark:text-white">
+              Nexora
+            </span>
+            <span className="px-2 py-0.5 rounded-md bg-zinc-200 dark:bg-white/10 text-[10px] font-bold text-zinc-600 dark:text-zinc-400">
+              UI
+            </span>
+          </Link>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 min-h-0 overflow-y-auto py-4 px-2 flex flex-col gap-5 no-scrollbar" aria-label="Components">
+        {/* Search (Visual Only) */}
+        <div className="px-4 py-4 shrink-0">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-200 dark:border-white/10 bg-white dark:bg-zinc-900/50 text-zinc-500 dark:text-zinc-400">
+            <Search size={14} />
+            <span className="text-sm">Search components...</span>
+            <span className="ml-auto text-xs bg-zinc-100 dark:bg-white/10 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-white/5">⌘K</span>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto px-4 pb-6 no-scrollbar">
           {sidebarCategories.map((cat) => (
             <SidebarSection
               key={cat.id}
@@ -115,20 +113,14 @@ export const ExplorerShell = () => {
             />
           ))}
         </nav>
-
-        {/* Footer */}
-        <div className="px-4 py-3 border-t border-zinc-200 dark:border-white/[0.07] shrink-0">
-          <p className="text-[11px] text-zinc-400 dark:text-zinc-600">
-            v2.4.0 · 120+ components
-          </p>
-        </div>
       </aside>
 
-      {/* Main */}
-      <main className="flex-1 min-w-0 overflow-y-auto no-scrollbar bg-zinc-50 dark:bg-zinc-950">
+      {/* Main Content */}
+      <main className="flex-1 min-w-0 overflow-y-auto bg-white dark:bg-black no-scrollbar relative">
+        {/* Top Gradient */}
+        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-zinc-100/50 to-transparent dark:from-white/[0.02] dark:to-transparent pointer-events-none" />
         <ComponentView component={active} />
       </main>
-
     </div>
   )
 }

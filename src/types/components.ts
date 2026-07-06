@@ -1,4 +1,4 @@
-export type Category = "generic" | "animated" | "saas" | "fintech"
+export type Category = "generic" | "animated" | "saas" | "fintech" | "blocks"
 
 export interface ComponentConfig {
   id: string
@@ -6,6 +6,7 @@ export interface ComponentConfig {
   category: Category
   description: string
   code: string
+  isPremium?: boolean
   // NOTE: no `preview` here — components are not serializable across RSC boundary
 }
 

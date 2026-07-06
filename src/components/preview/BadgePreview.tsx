@@ -1,26 +1,57 @@
-export const BadgePreview = () => (
-  <div className="flex flex-wrap items-center gap-2.5">
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-      Default
-    </span>
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-      Success
-    </span>
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">
-      Warning
-    </span>
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400">
-      Danger
-    </span>
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">
-      Info
-    </span>
-    <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400">
-      New
-    </span>
-    <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-      Live
-    </span>
-  </div>
-)
+"use client"
+
+import { Badge } from "@/components/ui/badge"
+import { Check, X, AlertCircle } from "lucide-react"
+
+export const BadgePreview = () => {
+  return (
+    <div className="flex flex-col gap-12 w-full max-w-2xl items-center">
+      {/* 1. Basic Variants */}
+      <div className="space-y-4 w-full">
+        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Variants</h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge variant="default">Default</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="destructive">Destructive</Badge>
+          <Badge variant="outline">Outline</Badge>
+        </div>
+      </div>
+
+      {/* 2. With Icons */}
+      <div className="space-y-4 w-full">
+        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. With Icons</h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge variant="default" className="gap-1 pr-1.5">
+            <Check className="h-3 w-3" /> Completed
+          </Badge>
+          <Badge variant="secondary" className="gap-1">
+            <AlertCircle className="h-3 w-3" /> Pending
+          </Badge>
+          <Badge variant="destructive" className="gap-1">
+            <X className="h-3 w-3" /> Failed
+          </Badge>
+        </div>
+      </div>
+
+      {/* 3. Dot Badges (Status) */}
+      <div className="space-y-4 w-full">
+        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. Status Indicators</h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Active
+          </Badge>
+          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            In Progress
+          </Badge>
+          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
+            <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+            Draft
+          </Badge>
+        </div>
+      </div>
+
+    </div>
+  )
+}

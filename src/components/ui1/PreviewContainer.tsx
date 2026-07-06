@@ -25,7 +25,7 @@ export const PreviewContainer = ({ children, className }: PreviewContainerProps)
     />
     {/* Fade vignette on edges */}
     <div
-      className="pointer-events-none absolute inset-0"
+      className="pointer-events-none absolute inset-0 dark:hidden"
       style={{
         background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgb(250 250 250 / 0.8) 100%)",
       }}
