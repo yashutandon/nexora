@@ -514,12 +514,31 @@ export const ThemeToggleButton = ({
   blur?: boolean;
   gifUrl?: string;
 }) => {
+  const [mounted, setMounted] = React.useState(false);
   const { isDark, toggleTheme } = useThemeToggle({
     variant,
     start,
     blur,
     gifUrl,
   });
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // To prevent hydration mismatch, render a placeholder on the server
+  if (!mounted) {
+    return (
+      <button
+        type="button"
+        className={cn(
+          "w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 active:scale-95 bg-zinc-100 border-zinc-200 text-zinc-700",
+          className
+        )}
+        aria-label="Toggle theme"
+      />
+    );
+  }
 
   return (
     <button
@@ -547,6 +566,7 @@ export const ThemeToggleButton = ({
       >
         <clipPath id="skiper-btn-3">
           <motion.path
+            initial={{ y: isDark ? 14 : 0, x: isDark ? -11 : 0 }}
             animate={{ y: isDark ? 14 : 0, x: isDark ? -11 : 0 }}
             transition={{ ease: "easeInOut", duration: 0.35 }}
             d="M0-11h25a1 1 0 0017 13v30H0Z"
@@ -555,6 +575,7 @@ export const ThemeToggleButton = ({
 
         <g clipPath="url(#skiper-btn-3)">
           <motion.circle
+            initial={{ r: isDark ? 10 : 8 }}
             animate={{ r: isDark ? 10 : 8 }}
             transition={{ ease: "easeInOut", duration: 0.35 }}
             cx="16"
@@ -562,6 +583,10 @@ export const ThemeToggleButton = ({
           />
 
           <motion.g
+            initial={{
+              scale: isDark ? 0.5 : 1,
+              opacity: isDark ? 0 : 1,
+            }}
             animate={{
               scale: isDark ? 0.5 : 1,
               opacity: isDark ? 0 : 1,
