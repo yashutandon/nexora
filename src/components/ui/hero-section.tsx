@@ -1,11 +1,29 @@
+"use client"
+
 import * as React from "react"
 import { ArrowRight, Sparkles } from "lucide-react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
   badgeText?: string;
+}
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15 } }
 }
 
 export function HeroSection({
@@ -23,10 +41,15 @@ export function HeroSection({
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-24 pb-32 sm:pt-32 sm:pb-40">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="mx-auto max-w-2xl text-center"
+        >
           
           {/* Badge */}
-          <div className="mb-8 flex justify-center">
+          <motion.div variants={item} className="mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400 ring-1 ring-zinc-900/10 dark:ring-white/10 hover:ring-zinc-900/20 dark:hover:ring-white/20 transition-all flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-yellow-500" />
               {badgeText}
@@ -35,45 +58,50 @@ export function HeroSection({
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Title */}
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-6xl text-balance">
+          <motion.h1 variants={item} className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-6xl text-balance">
             {title}
-          </h1>
+          </motion.h1>
           
           {/* Subtitle */}
-          <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400 text-balance">
+          <motion.p variants={item} className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400 text-balance">
             {subtitle}
-          </p>
+          </motion.p>
           
           {/* Actions */}
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
+          <motion.div variants={item} className="mt-10 flex items-center justify-center gap-x-6">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href="#"
-              className="group rounded-full bg-zinc-900 dark:bg-white px-8 py-3 text-sm font-semibold text-white dark:text-zinc-900 shadow-sm hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center gap-2"
+              className="group rounded-full bg-zinc-900 dark:bg-white px-8 py-3 text-sm font-semibold text-white dark:text-zinc-900 shadow-[0_0_20px_-5px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_-5px_rgba(255,255,255,0.5)] hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center gap-2"
             >
               Get started
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#" className="text-sm font-semibold leading-6 text-zinc-900 dark:text-white flex items-center gap-2 group">
+            </motion.a>
+            <a href="#" className="text-sm font-semibold leading-6 text-zinc-900 dark:text-white flex items-center gap-2 group hover:opacity-80 transition-opacity">
               View on GitHub
             </a>
-          </div>
+          </motion.div>
 
           {/* Dashboard Preview / Mockup */}
-          <div className="mt-16 sm:mt-24">
-            <div className="relative rounded-xl bg-zinc-900/5 dark:bg-white/5 p-2 ring-1 ring-inset ring-zinc-900/10 dark:ring-white/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+          <motion.div variants={item} className="mt-16 sm:mt-24">
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="relative rounded-xl bg-zinc-900/5 dark:bg-white/5 p-2 ring-1 ring-inset ring-zinc-900/10 dark:ring-white/10 lg:-m-4 lg:rounded-2xl lg:p-4"
+            >
               <div className="rounded-md bg-white dark:bg-zinc-950 shadow-2xl ring-1 ring-zinc-900/10 dark:ring-white/10 flex items-center justify-center aspect-video overflow-hidden relative">
                 {/* Mockup Pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
                 <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-zinc-500 opacity-20 blur-[100px]"></div>
                 <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Your App Screenshot Here</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </div>
   )

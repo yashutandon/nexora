@@ -1,55 +1,15 @@
-"use client"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Search } from "lucide-react"
 
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from "@/components/ui/input-group"
-import { Search, Copy } from "lucide-react"
-
-export const InputGroupPreview = () => {
+export function InputGroupPreview() {
   return (
-    <div className="flex flex-col gap-12 w-full max-w-sm mx-auto items-center">
-      {/* 1. Basic Icon Addon */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Icon Addon</h3>
-        <InputGroup>
-          <InputGroupAddon>
-            <Search className="h-4 w-4 text-zinc-500" />
-          </InputGroupAddon>
-          <InputGroupInput placeholder="Search documentation..." />
-        </InputGroup>
+    <div className="flex w-full max-w-sm items-center space-x-2">
+      <div className="relative flex-1">
+        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-zinc-500" />
+        <Input type="text" placeholder="Search..." className="pl-9" />
       </div>
-
-      {/* 2. Text Addon */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. Text Addon</h3>
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>https://</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput placeholder="nexora.ui" />
-          <InputGroupAddon>
-            <InputGroupText>.com</InputGroupText>
-          </InputGroupAddon>
-        </InputGroup>
-      </div>
-
-      {/* 3. Button Addon */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. Button Addon</h3>
-        <InputGroup>
-          <InputGroupInput value="npm i @nexora/ui" readOnly />
-          <InputGroupAddon>
-            <InputGroupButton variant="secondary">
-              <Copy className="h-4 w-4 mr-2" />
-              Copy
-            </InputGroupButton>
-          </InputGroupAddon>
-        </InputGroup>
-      </div>
+      <Button type="submit">Search</Button>
     </div>
   )
 }

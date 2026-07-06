@@ -2,20 +2,20 @@
 
 import { LogOut, User } from "lucide-react"
 import { useAuthStore } from "@/store/useAuthStore"
+import Link from "next/link"
 
 export const UserNav = () => {
-  const { user, isLoggedIn, logout, login } = useAuthStore()
+  const { user, isAuthenticated, logout } = useAuthStore()
 
-  if (!isLoggedIn || !user) {
+  if (!isAuthenticated || !user) {
     return (
-      <button
-        // TEMPORARY: Dummy login for testing the architecture
-        onClick={() => login({ id: "1", name: "Demo User", email: "demo@example.com", role: "PRO" }, "dummy_token")}
+      <Link
+        href="/login"
         style={{ fontFamily: "var(--font-dm-sans)" }}
         className="hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-lg text-[13px] font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-white transition-colors duration-150"
       >
         Sign In
-      </button>
+      </Link>
     )
   }
 

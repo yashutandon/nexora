@@ -1,23 +1,47 @@
 "use client"
 
-import { useState, memo } from "react"
+import { useState, memo, useEffect } from "react"
 import { ComponentConfig } from "@/types/components"
 import { previewRegistry } from "@/components/explorer/preview-registry"
 import { PreviewContainer } from "../ui1/PreviewContainer"
 import { CodeBlock } from "../ui1/CodeBlock"
 import { InstallPreview } from "../preview/InstallPreview"
 import { DefaultPreview } from "../preview/DefaultPreview"
-import { ExternalLink, Terminal, Eye, Code2, ChevronRight, Check, Lock } from "lucide-react"
+import { ExternalLink, Terminal, Eye, Code2, ChevronRight, Check, Lock, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuthStore } from "@/store/useAuthStore"
+import axios from "axios"
 
 export const ComponentView = memo(({ component }: { component: ComponentConfig }) => {
   const { user } = useAuthStore()
   const [tab, setTab] = useState<"preview" | "code">("preview")
+  const [fetchedCode, setFetchedCode] = useState<string | null>(null)
+  const [isLoadingCode, setIsLoadingCode] = useState(false)
+  
   const Preview = previewRegistry[component.id]
   
   const isPro = user?.role === "PRO"
   const showCode = !component.isPremium || isPro
+
+  useEffect(() => {
+    // Only fetch if they can see the code and it's not already fetched
+    if (showCode && !fetchedCode) {
+      setIsLoadingCode(true)
+      axios.get(`/api/components/${component.id}`)
+        .then((res) => {
+          setFetchedCode(res.data.code)
+        })
+        .catch(() => {
+          setFetchedCode(`/* 
+  Code for ${component.name} is currently being developed. 
+  Check back soon! 
+*/`)
+        })
+        .finally(() => {
+          setIsLoadingCode(false)
+        })
+    }
+  }, [component.id, showCode, fetchedCode])
 
   return (
     <div className="max-w-4xl mx-auto w-full px-8 py-16 flex flex-col gap-16 relative z-10">
@@ -83,8 +107,15 @@ export const ComponentView = memo(({ component }: { component: ComponentConfig }
               {Preview ? <Preview /> : <DefaultPreview componentName={component.name} />}
             </PreviewContainer>
           ) : showCode ? (
-            <div className="p-4">
-              <CodeBlock code={component.code} />
+            <div className="p-4 h-full">
+              {isLoadingCode ? (
+                <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 text-zinc-500">
+                  <Loader2 className="animate-spin" size={24} />
+                  <p className="text-sm">Fetching code...</p>
+                </div>
+              ) : (
+                <CodeBlock code={fetchedCode || ""} />
+              )}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 p-8 text-center bg-zinc-50 dark:bg-zinc-900/50">

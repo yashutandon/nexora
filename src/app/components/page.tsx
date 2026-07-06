@@ -1,5 +1,5 @@
-import { ExplorerShell } from "@/components/explorer/ExplorerShell"
+import { redirect } from "next/navigation"
 
 export default function ComponentsPage() {
-  return <ExplorerShell />
+  redirect("/components/button")
 }

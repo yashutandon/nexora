@@ -10,44 +10,37 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 
-export const CollapsiblePreview = () => {
+export function CollapsiblePreview() {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <div className="flex flex-col gap-12 w-full max-w-sm mx-auto items-center">
-      <div className="space-y-4 w-full text-center">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Basic Collapsible</h3>
-        <div className="flex justify-center">
-          <Collapsible
-            open={isOpen}
-            onOpenChange={setIsOpen}
-            className="w-[350px] space-y-2 text-left"
-          >
-            <div className="flex items-center justify-between space-x-4 px-4">
-              <h4 className="text-sm font-semibold">
-                @peduarte starred 3 repositories
-              </h4>
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm" className="w-9 p-0">
-                  <ChevronsUpDown className="h-4 w-4" />
-                  <span className="sr-only">Toggle</span>
-                </Button>
-              </CollapsibleTrigger>
-            </div>
-            <div className="rounded-md border border-zinc-200 dark:border-zinc-800 px-4 py-3 font-mono text-sm">
-              @radix-ui/primitives
-            </div>
-            <CollapsibleContent className="space-y-2">
-              <div className="rounded-md border border-zinc-200 dark:border-zinc-800 px-4 py-3 font-mono text-sm">
-                @radix-ui/colors
-              </div>
-              <div className="rounded-md border border-zinc-200 dark:border-zinc-800 px-4 py-3 font-mono text-sm">
-                @stitches/react
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-        </div>
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className="w-[350px] space-y-2"
+    >
+      <div className="flex items-center justify-between space-x-4 px-4">
+        <h4 className="text-sm font-semibold">
+          @peduarte starred 3 repositories
+        </h4>
+        <CollapsibleTrigger asChild>
+          <Button variant="ghost" size="sm" className="w-9 p-0">
+            <ChevronsUpDown className="h-4 w-4" />
+            <span className="sr-only">Toggle</span>
+          </Button>
+        </CollapsibleTrigger>
       </div>
-    </div>
+      <div className="rounded-md border px-4 py-3 font-mono text-sm">
+        @radix-ui/primitives
+      </div>
+      <CollapsibleContent className="space-y-2">
+        <div className="rounded-md border px-4 py-3 font-mono text-sm">
+          @radix-ui/colors
+        </div>
+        <div className="rounded-md border px-4 py-3 font-mono text-sm">
+          @stitches/react
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   )
 }

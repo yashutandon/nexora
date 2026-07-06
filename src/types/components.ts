@@ -5,7 +5,7 @@ export interface ComponentConfig {
   name: string
   category: Category
   description: string
-  code: string
+  code?: string
   isPremium?: boolean
   // NOTE: no `preview` here — components are not serializable across RSC boundary
 }

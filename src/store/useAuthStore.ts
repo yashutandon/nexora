@@ -1,55 +1,56 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { apiClient } from '../lib/apiClient';
 
-export interface User {
+interface User {
   id: string;
   name: string;
   email: string;
-  role: "USER" | "PRO" | "ADMIN";
-  image?: string;
+  role: string;
+  image?: string | null;
+  hasProAccess: boolean;
 }
 
 interface AuthState {
   user: User | null;
-  token: string | null;
-  isLoggedIn: boolean;
-  
-  // Actions
-  login: (user: User, token: string) => void;
-  logout: () => void;
-  updateUser: (data: Partial<User>) => void;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  checkAuth: () => Promise<void>;
+  setUser: (user: User | null) => void;
+  logout: () => Promise<void>;
 }
 
-/**
- * Global Auth Store using Zustand.
- * Persisted in localStorage so the user stays logged in across refreshes.
- */
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      token: null,
-      isLoggedIn: false,
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  isAuthenticated: false,
+  isLoading: true, // Start in loading state until we check
 
-      login: (user, token) => set({ user, token, isLoggedIn: true }),
-      
-      logout: () => {
-        // Also clear any other tokens/cookies if needed
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("auth_token");
-        }
-        set({ user: null, token: null, isLoggedIn: false });
-      },
+  setUser: (user) => set({ user, isAuthenticated: !!user }),
 
-      updateUser: (data) =>
-        set((state) => ({
-          user: state.user ? { ...state.user, ...data } : null,
-        })),
-    }),
-    {
-      name: "auth-storage", // name of the item in the storage (must be unique)
-      // Only persist these specific fields (optional)
-      // partialize: (state) => ({ user: state.user, token: state.token }), 
+  checkAuth: async () => {
+    set({ isLoading: true });
+    try {
+      const res = await apiClient.get('/auth/me');
+      set({
+        user: res.data.user,
+        isAuthenticated: true,
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
     }
-  )
-);
+  },
+
+  logout: async () => {
+    try {
+      await apiClient.post('/auth/logout');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      set({ user: null, isAuthenticated: false });
+    }
+  },
+}));
