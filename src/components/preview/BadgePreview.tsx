@@ -1,57 +1,34 @@
-"use client"
-
 import { Badge } from "@/components/ui/badge"
-import { Check, X, AlertCircle } from "lucide-react"
+import { useBuilderStore } from "@/hooks/use-builder-store"
 
-export const BadgePreview = () => {
+export function BadgePreview() {
+  const rawProps = useBuilderStore((state) => state.componentProps["badge"]);
+  const props = rawProps || {};
+
   return (
-    <div className="flex flex-col gap-12 w-full max-w-2xl items-center">
-      {/* 1. Basic Variants */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Variants</h3>
-        <div className="flex flex-wrap gap-4">
-          <Badge variant="default">Default</Badge>
+    <div className="flex flex-col items-center justify-center gap-12 w-full max-w-sm">
+      {/* Interactive Main View */}
+      <div className="flex flex-col items-center gap-4 p-8 border border-border/50 rounded-xl bg-muted/20 w-full min-h-[150px] justify-center">
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center mb-2">
+          Interactive Preview
+        </span>
+        <Badge variant={props.variant as any || "default"}>
+          {props.variant ? String(props.variant).charAt(0).toUpperCase() + String(props.variant).slice(1) : "Default"} Badge
+        </Badge>
+      </div>
+
+      {/* Static Grid for Reference */}
+      <div className="w-full space-y-6 opacity-70 grayscale-[30%] pointer-events-none hover:opacity-100 hover:grayscale-0 hover:pointer-events-auto transition-all duration-300">
+        <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center border-b border-border/50 pb-2">
+          All Variants Reference
+        </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Badge>Default</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="destructive">Destructive</Badge>
           <Badge variant="outline">Outline</Badge>
         </div>
       </div>
-
-      {/* 2. With Icons */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. With Icons</h3>
-        <div className="flex flex-wrap gap-4">
-          <Badge variant="default" className="gap-1 pr-1.5">
-            <Check className="h-3 w-3" /> Completed
-          </Badge>
-          <Badge variant="secondary" className="gap-1">
-            <AlertCircle className="h-3 w-3" /> Pending
-          </Badge>
-          <Badge variant="destructive" className="gap-1">
-            <X className="h-3 w-3" /> Failed
-          </Badge>
-        </div>
-      </div>
-
-      {/* 3. Dot Badges (Status) */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. Status Indicators</h3>
-        <div className="flex flex-wrap gap-4">
-          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Active
-          </Badge>
-          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-            In Progress
-          </Badge>
-          <Badge variant="outline" className="gap-1.5 pl-2 border-zinc-200 dark:border-zinc-800">
-            <span className="h-1.5 w-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-            Draft
-          </Badge>
-        </div>
-      </div>
-
     </div>
   )
 }

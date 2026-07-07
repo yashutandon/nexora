@@ -6,17 +6,17 @@ import { useEffect } from "react";
 import { DashboardLayout as DashboardBlock } from "@/components/ui/dashboard-layout";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { isLoggedIn } = useAuthStore();
+  const { isAuthenticated, isLoading } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/");
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
     }
-  }, [isLoggedIn, router]);
+  }, [isAuthenticated, isLoading, router]);
 
-  if (!isLoggedIn) {
-    return null; // Return nothing while redirecting
+  if (isLoading || !isAuthenticated) {
+    return null; // Return nothing while checking/redirecting
   }
 
   return (

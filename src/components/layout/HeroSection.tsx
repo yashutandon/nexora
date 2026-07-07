@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import { Link as ViewTransitionsLink } from "next-view-transitions"
 import { motion, useScroll, useTransform, Variants } from "framer-motion"
-import { ArrowRight, Flame, Star, Check, Zap } from "lucide-react"
+import { ArrowRight, Star, Check, Zap } from "lucide-react"
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },

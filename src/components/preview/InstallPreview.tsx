@@ -27,22 +27,22 @@ export const InstallPreview = ({ componentId = "button" }: { componentId?: strin
   }
 
   return (
-    <div className="rounded-2xl border border-black/[0.07] dark:border-white/[0.07] bg-white dark:bg-zinc-900 overflow-hidden w-full max-w-lg">
-      {/* Terminal top bar */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-black/[0.07] dark:border-white/[0.07]">
+    <div className="rounded-2xl border border-border bg-card overflow-hidden w-full max-w-lg">
+      {/* Terminal chrome — macOS traffic lights are intentionally fixed colors */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
         <div className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
           <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
         </div>
-        <span className="flex items-center gap-1.5 ml-1 text-[11px] text-zinc-400 dark:text-zinc-500">
+        <span className="flex items-center gap-1.5 ml-1 text-[11px] text-muted-foreground">
           <Terminal size={11} />
           terminal
         </span>
       </div>
 
-      {/* PM tabs */}
-      <div className="flex items-center gap-0 border-b border-black/[0.07] dark:border-white/[0.07] px-4">
+      {/* Package manager tabs — active tab tracks --primary */}
+      <div className="flex items-center gap-0 border-b border-border px-4">
         {PACKAGE_MANAGERS.map((p) => (
           <button
             key={p}
@@ -50,8 +50,8 @@ export const InstallPreview = ({ componentId = "button" }: { componentId?: strin
             className={cn(
               "px-3 py-2.5 text-[12px] font-medium transition-all duration-150 border-b-2 -mb-px",
               pm === p
-                ? "border-red-500 text-red-600 dark:text-red-400"
-                : "border-transparent text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             )}
           >
             {p}
@@ -59,7 +59,7 @@ export const InstallPreview = ({ componentId = "button" }: { componentId?: strin
         ))}
       </div>
 
-      {/* Command line */}
+      {/* Command line — intentionally uses dark terminal bg */}
       <div className="flex items-center justify-between gap-3 px-4 py-4 bg-zinc-950 font-mono">
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="text-emerald-400 text-[13px] shrink-0">$</span>

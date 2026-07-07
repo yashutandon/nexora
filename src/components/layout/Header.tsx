@@ -8,8 +8,9 @@ import { Link as ViewTransitionsLink } from "next-view-transitions";
 import { NexoraLogo } from "../ui/NexoraLogo";
 import { ThemeToggleButton } from "../ui/theme-style";
 import { UserNav } from "./UserNav";
+import { Paintbrush } from "lucide-react";
 import { navConfig } from "@/config/nav";
-import { siteConfig } from "@/config/site";
+
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,6 +62,15 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3 mr-2">
+            <Link href="/theme-editor" passHref>
+              <button
+                type="button"
+                className="w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 active:scale-95 bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-white hover:bg-white dark:hover:bg-zinc-700"
+                aria-label="Theme Editor"
+              >
+                <Paintbrush className="w-4 h-4" />
+              </button>
+            </Link>
             <ThemeToggleButton />
             <UserNav />
 

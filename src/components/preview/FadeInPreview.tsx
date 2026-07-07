@@ -16,12 +16,12 @@ export const FadeInPreview = () => {
   return (
     <div className="flex flex-col gap-5 w-full max-w-sm">
       <div className="flex items-center justify-between">
-        <p className="text-[12px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+        <p className="text-[12px] font-medium text-muted-foreground uppercase tracking-wider">
           Staggered fade-up
         </p>
         <button
           onClick={() => setKey((k) => k + 1)}
-          className="flex items-center gap-1.5 text-[12px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
+          className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors"
         >
           <RefreshCw size={11} />
           Replay
@@ -39,20 +39,21 @@ export const FadeInPreview = () => {
               animationName: "fadeUp",
               animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
             }}
-            className="flex items-center justify-between px-4 py-3 rounded-xl border border-black/6 dark:border-white/6 bg-white dark:bg-zinc-900"
+            className="flex items-center justify-between px-4 py-3 rounded-xl border border-border bg-card"
           >
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+              {/* status dot tracks --primary */}
+              <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
               <div>
-                <p className="text-[13px] font-medium text-zinc-800 dark:text-zinc-200">
+                <p className="text-[13px] font-medium text-foreground">
                   {item.label}
                 </p>
-                <p className="text-[11.5px] text-zinc-400 dark:text-zinc-500">
+                <p className="text-[11.5px] text-muted-foreground">
                   {item.sub}
                 </p>
               </div>
             </div>
-            <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600">
+            <span className="text-[10px] font-mono text-muted-foreground">
               {item.delay}
             </span>
           </div>

@@ -1,55 +1,41 @@
-"use client"
-
 import { Slider } from "@/components/ui/slider"
-import { Volume2, VolumeX, Sun, Moon } from "lucide-react"
+import { useBuilderStore } from "@/hooks/use-builder-store"
 
-export const SliderPreview = () => {
+export function SliderPreview() {
+  const rawProps = useBuilderStore((state) => state.componentProps["slider"]);
+  const props = rawProps || {};
+
   return (
-    <div className="flex flex-col gap-12 w-full max-w-2xl">
-      {/* 1. Basic Slider */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Basic</h3>
-        <Slider defaultValue={[50]} max={100} step={1} />
+    <div className="flex flex-col items-center justify-center gap-12 w-full max-w-sm">
+      {/* Interactive Main View */}
+      <div className="flex flex-col items-center gap-6 p-8 border border-border/50 rounded-xl bg-muted/20 w-full min-h-[150px] justify-center">
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center">
+          Interactive Preview
+        </span>
+        <Slider 
+          defaultValue={[50]} 
+          max={Number(props.max) || 100} 
+          step={Number(props.step) || 1} 
+          disabled={Boolean(props.disabled)}
+        />
       </div>
 
-      {/* 2. Range Slider */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. Range Selection</h3>
-        <Slider defaultValue={[25, 75]} max={100} step={1} />
-        <div className="flex justify-between text-xs text-zinc-500 font-medium">
-          <span>Min: $25</span>
-          <span>Max: $75</span>
+      {/* Static Grid for Reference */}
+      <div className="w-full space-y-6 opacity-70 grayscale-[30%] pointer-events-none hover:opacity-100 hover:grayscale-0 hover:pointer-events-auto transition-all duration-300">
+        <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center border-b border-border/50 pb-2">
+          All States Reference
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground">Default</span>
+            <Slider defaultValue={[50]} max={100} step={1} />
+          </div>
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground">Disabled</span>
+            <Slider defaultValue={[25]} max={100} step={1} disabled />
+          </div>
         </div>
       </div>
-
-      {/* 3. With Icons */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. With Icons</h3>
-        <div className="flex items-center gap-4">
-          <VolumeX className="text-zinc-500 h-4 w-4" />
-          <Slider defaultValue={[30]} max={100} step={1} />
-          <Volume2 className="text-zinc-500 h-4 w-4" />
-        </div>
-        
-        <div className="flex items-center gap-4 pt-4">
-          <Moon className="text-zinc-500 h-4 w-4" />
-          <Slider defaultValue={[80]} max={100} step={1} />
-          <Sun className="text-zinc-500 h-4 w-4" />
-        </div>
-      </div>
-
-      {/* 4. Steps & Ticks */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">4. Stepped (Intervals of 20)</h3>
-        <Slider defaultValue={[40]} max={100} step={20} />
-      </div>
-
-      {/* 5. Disabled */}
-      <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">5. Disabled</h3>
-        <Slider defaultValue={[50]} max={100} step={1} disabled />
-      </div>
-
     </div>
   )
 }

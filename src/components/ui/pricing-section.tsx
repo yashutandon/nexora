@@ -1,5 +1,8 @@
+"use client"
+
 import * as React from "react"
 import { Check, Sparkles } from "lucide-react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 const plans = [
@@ -35,6 +38,21 @@ const plans = [
   }
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15 } }
+}
+
 export function PricingSection({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={cn("py-24 sm:py-32 bg-white dark:bg-black w-full relative overflow-hidden", className)} {...props}>
@@ -43,7 +61,13 @@ export function PricingSection({ className, ...props }: React.HTMLAttributes<HTM
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.8),transparent_70%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.05),transparent_70%)] pointer-events-none" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-        <div className="mx-auto max-w-4xl text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-4xl text-center"
+        >
           <h2 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 mb-4 flex items-center justify-center gap-2">
             <Sparkles className="w-4 h-4" />
             Unlock the Full Power of Nexora
@@ -51,19 +75,34 @@ export function PricingSection({ className, ...props }: React.HTMLAttributes<HTM
           <p className="mt-2 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
             Simple, transparent pricing
           </p>
-        </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-          No subscriptions. No hidden fees. Pay once and get lifetime access to all premium components and blocks.
-        </p>
+        </motion.div>
         
-        <div className="mx-auto mt-16 grid max-w-md grid-cols-1 gap-8 md:max-w-4xl md:grid-cols-2">
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-zinc-600 dark:text-zinc-400"
+        >
+          No subscriptions. No hidden fees. Pay once and get lifetime access to all premium components and blocks.
+        </motion.p>
+        
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mx-auto mt-16 grid max-w-md grid-cols-1 gap-8 md:max-w-4xl md:grid-cols-2"
+        >
           {plans.map((plan) => (
-            <div
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ y: -5 }}
               key={plan.name}
               className={cn(
                 "rounded-3xl p-8 xl:p-10 relative overflow-hidden transition-all duration-300",
                 plan.isPopular 
-                  ? "bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 shadow-2xl scale-100 md:scale-105 border border-zinc-800 dark:border-zinc-200" 
+                  ? "bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 shadow-[0_0_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_0_40px_-10px_rgba(255,255,255,0.1)] md:scale-105 border border-zinc-800 dark:border-zinc-200" 
                   : "bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-sm"
               )}
             >
@@ -86,7 +125,9 @@ export function PricingSection({ className, ...props }: React.HTMLAttributes<HTM
                 <span className={cn("text-sm font-semibold leading-6", plan.isPopular ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-600 dark:text-zinc-400")}>/{plan.period}</span>
               </p>
               
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className={cn(
                   "mt-8 block w-full rounded-full py-3 px-3 text-center text-sm font-bold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all",
                   plan.isPopular
@@ -95,7 +136,7 @@ export function PricingSection({ className, ...props }: React.HTMLAttributes<HTM
                 )}
               >
                 {plan.cta}
-              </button>
+              </motion.button>
               
               <ul role="list" className={cn("mt-8 space-y-4 text-sm leading-6", plan.isPopular ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-600 dark:text-zinc-400")}>
                 {plan.features.map((feature) => (
@@ -105,9 +146,9 @@ export function PricingSection({ className, ...props }: React.HTMLAttributes<HTM
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   )

@@ -1,16 +1,33 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Loader2, Mail } from "lucide-react"
+import { useBuilderStore } from "@/hooks/use-builder-store"
 
-export const ButtonPreview = () => {
+export function ButtonPreview() {
+  const rawProps = useBuilderStore((state) => state.componentProps["button"]);
+  const props = rawProps || {};
+
   return (
-    <div className="flex flex-col gap-12 w-full max-w-2xl items-center">
-      {/* 1. Basic Variants */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Variants</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="default">Default</Button>
+    <div className="flex flex-col items-center justify-center gap-12 w-full max-w-2xl">
+      {/* Interactive Main View */}
+      <div className="flex flex-col items-center gap-4 p-8 border border-border/50 rounded-xl bg-muted/20 w-full">
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
+          Interactive Preview
+        </span>
+        <Button 
+          variant={props.variant as any || "default"} 
+          size={props.size as any || "default"} 
+          disabled={props.disabled}
+        >
+          Button
+        </Button>
+      </div>
+
+      {/* Static Grid for Reference */}
+      <div className="w-full space-y-6 opacity-70 grayscale-[30%] pointer-events-none hover:opacity-100 hover:grayscale-0 hover:pointer-events-auto transition-all duration-300">
+        <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center border-b border-border/50 pb-2">
+          All Variants Reference
+        </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Button>Primary</Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="destructive">Destructive</Button>
           <Button variant="outline">Outline</Button>
@@ -18,45 +35,6 @@ export const ButtonPreview = () => {
           <Button variant="link">Link</Button>
         </div>
       </div>
-
-      {/* 2. Sizes */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. Sizes</h3>
-        <div className="flex flex-wrap items-center gap-4">
-          <Button size="sm">Small</Button>
-          <Button size="default">Default</Button>
-          <Button size="lg">Large</Button>
-          <Button size="icon">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      {/* 3. With Icons */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. With Icons</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button>
-            <Mail className="mr-2 h-4 w-4" /> Login with Email
-          </Button>
-          <Button variant="secondary">
-            Next Step <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      {/* 4. States */}
-      <div className="space-y-4 w-full">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">4. States (Loading & Disabled)</h3>
-        <div className="flex flex-wrap gap-4">
-          <Button disabled>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Please wait
-          </Button>
-          <Button disabled>Not allowed</Button>
-        </div>
-      </div>
-
     </div>
   )
 }

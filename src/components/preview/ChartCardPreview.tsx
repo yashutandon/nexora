@@ -30,13 +30,13 @@ export const ChartCardPreview = () => (
     {chartData.map((c) => (
       <div
         key={c.label}
-        className="p-4 rounded-xl border border-black/8 dark:border-white/8 bg-white dark:bg-zinc-900 flex flex-col gap-2.5"
+        className="p-4 rounded-xl border border-border bg-card flex flex-col gap-2.5"
       >
-        <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+        <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
           {c.label}
         </p>
         <div className="flex items-end justify-between">
-          <p className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+          <p className="text-[22px] font-semibold tracking-tight text-foreground">
             {c.value}
           </p>
           <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${
