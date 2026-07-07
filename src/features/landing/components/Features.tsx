@@ -37,10 +37,10 @@ export default function Features() {
         <div className="mb-16 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
             Everything you need. <br className="hidden sm:block" />
-            Nothing you don't.
+            Nothing you don&apos;t.
           </h2>
           <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
-            Nexora UI isn't just a component library. It's an entire architectural template designed to save you weeks of setup time.
+            Nexora UI isn&apos;t just a component library. It&apos;s an entire architectural template designed to save you weeks of setup time.
           </p>
         </div>
 

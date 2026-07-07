@@ -41,8 +41,9 @@ export function AuthForms({ className, mode = "login", ...props }: React.HTMLAtt
       // Update global store
       await checkAuth()
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.response?.data?.message || "An unexpected error occurred.")
+    } catch (err) {
+      const errorResponse = (err as { response?: { data?: { message?: string } } })?.response;
+      setError(errorResponse?.data?.message || "An unexpected error occurred.")
     } finally {
       setIsLoading(false)
     }

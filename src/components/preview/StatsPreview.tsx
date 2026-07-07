@@ -12,17 +12,17 @@ export const StatsPreview = () => (
     {stats.map((s) => (
       <div
         key={s.label}
-        className="flex flex-col gap-3 p-4 rounded-xl border border-black/8 dark:border-white/8 bg-white dark:bg-zinc-900"
+        className="flex flex-col gap-3 p-4 rounded-xl border border-border bg-card"
       >
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider leading-tight">
+          <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider leading-tight">
             {s.label}
           </p>
-          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted text-muted-foreground">
             {s.icon}
           </span>
         </div>
-        <p className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+        <p className="text-[22px] font-semibold tracking-tight text-foreground">
           {s.value}
         </p>
         <div className={`flex items-center gap-1 text-[11.5px] font-medium ${s.positive ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"}`}>

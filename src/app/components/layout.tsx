@@ -7,7 +7,6 @@ import { components } from "@/config/components"
 import { Category, SidebarCategory } from "@/types/components"
 import { Search } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { NexoraLogo } from "@/components/ui/NexoraLogo"
 import Header from "@/components/layout/Header"
 
 const CATEGORIES: { id: Category; label: string }[] = [

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Bell, Home, Settings, Users, LayoutDashboard, Search, Menu } from "lucide-react"
+import { Bell, Settings, Users, LayoutDashboard, Search, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function DashboardLayout({ className, children }: React.HTMLAttributes<HTMLDivElement>) {

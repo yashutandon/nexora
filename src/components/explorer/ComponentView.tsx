@@ -7,7 +7,7 @@ import { PreviewContainer } from "../ui1/PreviewContainer"
 import { CodeBlock } from "../ui1/CodeBlock"
 import { InstallPreview } from "../preview/InstallPreview"
 import { DefaultPreview } from "../preview/DefaultPreview"
-import { ExternalLink, Terminal, Eye, Code2, ChevronRight, Check, Lock, Loader2 } from "lucide-react"
+import { ExternalLink, Terminal, Eye, Code2, ChevronRight, Lock, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuthStore } from "@/store/useAuthStore"
 import axios from "axios"
@@ -41,7 +41,7 @@ export const ComponentView = memo(({ component }: { component: ComponentConfig }
           setIsLoadingCode(false)
         })
     }
-  }, [component.id, showCode, fetchedCode])
+  }, [component.id, component.name, showCode, fetchedCode])
 
   return (
     <div className="max-w-4xl mx-auto w-full px-8 py-16 flex flex-col gap-16 relative z-10">

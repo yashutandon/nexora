@@ -1,7 +1,6 @@
 "use client"
 
 import { Lock, ArrowRight, Sparkles } from "lucide-react"
-import { cn } from "@/lib/utils"
 import Link from "next/link"
 
 const templates = [
@@ -45,7 +44,7 @@ export default function TemplatesPage() {
             Beautifully crafted templates
           </h1>
           <p className="text-lg text-zinc-600 dark:text-zinc-400">
-            Don't want to build from scratch? Use our premium blocks and templates to launch your next project in hours, not weeks.
+            Don&apos;t want to build from scratch? Use our premium blocks and templates to launch your next project in hours, not weeks.
           </p>
         </div>
         
@@ -56,6 +55,7 @@ export default function TemplatesPage() {
               className="group relative flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={template.image} 
                   alt={template.name}

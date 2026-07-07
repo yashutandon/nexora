@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Copy, UserPlus, Trash2 } from "lucide-react"
+import { Copy, Trash2 } from "lucide-react"
 
 export const DialogPreview = () => {
   return (
     <div className="flex flex-col gap-12 w-full max-w-2xl">
       {/* 1. Basic Dialog */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Basic Modal</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">1. Basic Modal</h3>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline">Edit Profile</Button>
@@ -28,7 +28,7 @@ export const DialogPreview = () => {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -50,7 +50,7 @@ export const DialogPreview = () => {
 
       {/* 2. Share Link (Copy) */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. Share Link</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">2. Share Link</h3>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="secondary">Share Link</Button>
@@ -85,7 +85,7 @@ export const DialogPreview = () => {
 
       {/* 3. Destructive Action */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. Destructive Confirmation</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">3. Destructive Confirmation</h3>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="destructive" className="gap-2">
@@ -100,7 +100,7 @@ export const DialogPreview = () => {
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-2 py-4">
-              <p className="text-sm text-zinc-500">Please type <strong>confirm</strong> to continue.</p>
+              <p className="text-sm text-muted-foreground">Please type <strong>confirm</strong> to continue.</p>
               <Input placeholder="Type confirm" />
             </div>
             <DialogFooter>

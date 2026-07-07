@@ -27,7 +27,7 @@ export async function GET(
       dependencies: ["lucide-react", "clsx", "tailwind-merge", "class-variance-authority"],
       code: code,
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch component code." },
       { status: 500 }

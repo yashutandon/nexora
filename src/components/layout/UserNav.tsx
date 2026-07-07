@@ -23,6 +23,7 @@ export const UserNav = () => {
     <div className="relative group">
       <button className="flex items-center justify-center w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden ring-2 ring-transparent hover:ring-zinc-300 transition-all">
         {user?.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={user.image} alt={user.name || "User"} className="w-full h-full object-cover" />
         ) : (
           <User size={16} className="text-zinc-500" />

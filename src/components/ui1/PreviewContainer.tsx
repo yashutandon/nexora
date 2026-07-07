@@ -9,7 +9,7 @@ export const PreviewContainer = ({ children, className }: PreviewContainerProps)
   <div
     className={cn(
       "relative flex items-center justify-center min-h-80",
-      "bg-zinc-50 dark:bg-zinc-950",
+      "bg-background",
       "overflow-hidden p-10",
       className
     )}
@@ -23,19 +23,19 @@ export const PreviewContainer = ({ children, className }: PreviewContainerProps)
       }}
       aria-hidden
     />
-    {/* Fade vignette on edges */}
+    {/* Fade vignette — light mode */}
     <div
       className="pointer-events-none absolute inset-0 dark:hidden"
       style={{
-        background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgb(250 250 250 / 0.8) 100%)",
+        background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, hsl(var(--background) / 0.8) 100%)",
       }}
       aria-hidden
     />
-    {/* Dark mode vignette */}
+    {/* Fade vignette — dark mode */}
     <div
       className="pointer-events-none absolute inset-0 hidden dark:block"
       style={{
-        background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgb(9 9 11 / 0.8) 100%)",
+        background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, hsl(var(--background) / 0.8) 100%)",
       }}
       aria-hidden
     />

@@ -1,14 +1,14 @@
 "use client"
 
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { Shield, Zap, Globe, Cpu } from "lucide-react"
+import { Shield, Zap, Globe } from "lucide-react"
 
 export const AccordionPreview = () => {
   return (
     <div className="flex flex-col gap-12 w-full max-w-2xl">
       {/* 1. Basic Accordion */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">1. Basic Single</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">1. Basic Single</h3>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -20,13 +20,13 @@ export const AccordionPreview = () => {
             <AccordionTrigger>Is it styled?</AccordionTrigger>
             <AccordionContent>
               Yes. It comes with default styles that matches the other
-              components' aesthetic.
+              components&apos; aesthetic.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
             <AccordionTrigger>Is it animated?</AccordionTrigger>
             <AccordionContent>
-              Yes. It's animated by default, but you can disable it if you prefer.
+              Yes. It&apos;s animated by default, but you can disable it if you prefer.
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -34,7 +34,7 @@ export const AccordionPreview = () => {
 
       {/* 2. Multiple Open */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">2. Multiple Open</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">2. Multiple Open</h3>
         <Accordion type="multiple" className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger>What is Nexora?</AccordionTrigger>
@@ -53,7 +53,7 @@ export const AccordionPreview = () => {
 
       {/* 3. With Icons */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">3. With Leading Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">3. With Leading Icons</h3>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger className="flex gap-3 justify-start">
@@ -87,17 +87,17 @@ export const AccordionPreview = () => {
 
       {/* 4. Outline Boxed Variant */}
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">4. Boxed Variant</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">4. Boxed Variant</h3>
         <Accordion type="single" collapsible className="w-full space-y-2">
-          <AccordionItem value="item-1" className="border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 bg-white dark:bg-zinc-950 shadow-sm data-[state=open]:ring-1 data-[state=open]:ring-zinc-900 dark:data-[state=open]:ring-white transition-all">
+          <AccordionItem value="item-1" className="border border-border rounded-lg px-4 bg-card shadow-sm data-[state=open]:ring-1 data-[state=open]:ring-foreground transition-all">
             <AccordionTrigger className="border-b-0 hover:no-underline py-4">Account Settings</AccordionTrigger>
-            <AccordionContent className="text-zinc-500 dark:text-zinc-400">
+            <AccordionContent className="text-muted-foreground">
               Manage your personal information, subscription, and billing details.
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="item-2" className="border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 bg-white dark:bg-zinc-950 shadow-sm data-[state=open]:ring-1 data-[state=open]:ring-zinc-900 dark:data-[state=open]:ring-white transition-all">
+          <AccordionItem value="item-2" className="border border-border rounded-lg px-4 bg-card shadow-sm data-[state=open]:ring-1 data-[state=open]:ring-foreground transition-all">
             <AccordionTrigger className="border-b-0 hover:no-underline py-4">Notifications</AccordionTrigger>
-            <AccordionContent className="text-zinc-500 dark:text-zinc-400">
+            <AccordionContent className="text-muted-foreground">
               Choose what emails you want to receive and when.
             </AccordionContent>
           </AccordionItem>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Check, ChevronRight, Play, Settings, Sparkles, Loader2, ArrowRight } from "lucide-react";
+import { ChevronRight, Play, Settings, Sparkles, ArrowRight } from "lucide-react";
 
 export default function ComponentShowcase() {
   return (

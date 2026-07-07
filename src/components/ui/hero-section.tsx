@@ -86,20 +86,6 @@ export function HeroSection({
             </a>
           </motion.div>
 
-          {/* Dashboard Preview / Mockup */}
-          <motion.div variants={item} className="mt-16 sm:mt-24">
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="relative rounded-xl bg-zinc-900/5 dark:bg-white/5 p-2 ring-1 ring-inset ring-zinc-900/10 dark:ring-white/10 lg:-m-4 lg:rounded-2xl lg:p-4"
-            >
-              <div className="rounded-md bg-white dark:bg-zinc-950 shadow-2xl ring-1 ring-zinc-900/10 dark:ring-white/10 flex items-center justify-center aspect-video overflow-hidden relative">
-                {/* Mockup Pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-                <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-zinc-500 opacity-20 blur-[100px]"></div>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">Your App Screenshot Here</p>
-              </div>
-            </motion.div>
-          </motion.div>
 
         </motion.div>
       </div>

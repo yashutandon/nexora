@@ -20,6 +20,7 @@ export default function DashboardPage() {
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Profile</h2>
           <div className="flex items-center gap-4">
             {user?.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img src={user.image} alt="Profile" className="w-16 h-16 rounded-full" />
             ) : (
               <div className="w-16 h-16 rounded-full bg-zinc-200 dark:bg-zinc-800" />

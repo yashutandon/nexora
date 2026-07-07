@@ -10,7 +10,7 @@ export function CheckboxPreview() {
       </div>
       <div className="flex items-center space-x-2">
         <Checkbox id="disabled" disabled />
-        <Label htmlFor="disabled" className="text-zinc-400">Disabled checkbox</Label>
+        <Label htmlFor="disabled" className="text-muted-foreground">Disabled checkbox</Label>
       </div>
     </div>
   )

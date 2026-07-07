@@ -6,6 +6,22 @@ export const components: ComponentConfig[] = [
     name: "Button",
     category: "generic",
     description: "A versatile button component with multiple variants and states.",
+    controls: {
+      variant: {
+        type: "select",
+        options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
+        defaultValue: "default",
+      },
+      size: {
+        type: "select",
+        options: ["default", "sm", "lg", "icon"],
+        defaultValue: "default",
+      },
+      disabled: {
+        type: "boolean",
+        defaultValue: false,
+      },
+    },
     code: `import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -104,6 +120,13 @@ export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
     name: "Badge",
     category: "generic",
     description: "Compact label component for tags, statuses, and categories.",
+    controls: {
+      variant: {
+        type: "select",
+        options: ["default", "secondary", "destructive", "outline"],
+        defaultValue: "default",
+      }
+    },
     code: `import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -143,6 +166,16 @@ export { Badge, badgeVariants }`,
     name: "Input",
     category: "generic",
     description: "A styled text input with label, helper text, and error state support.",
+    controls: {
+      disabled: {
+        type: "boolean",
+        defaultValue: false,
+      },
+      placeholder: {
+        type: "string",
+        defaultValue: "Enter your name...",
+      },
+    },
     code: `import * as React from "react"
 import { cn } from "@/lib/utils"
 
@@ -174,8 +207,17 @@ export { Input }`,
     id: "animated-button",
     name: "Animated Button",
     category: "animated",
-    description: "A button with shimmer and arrow micro-interaction on hover.",
+    description: "Buttons with interactive micro-interactions and animations.",
+    controls: {
+      effect: {
+        type: "select",
+        options: ["shimmer", "loading", "ripple"],
+        defaultValue: "shimmer",
+      }
+    },
     code: `"use client"
+
+import * as React from "react"
 
 import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
@@ -368,6 +410,12 @@ export const TransactionRow = ({ name, category, date, amount, icon }: Transacti
     name: "Switch",
     category: "generic",
     description: "A control that allows the user to toggle between checked and not checked.",
+    controls: {
+      disabled: {
+        type: "boolean",
+        defaultValue: false,
+      }
+    },
     code: `/* Code is dynamically served from API */`,
   },
   {
@@ -403,6 +451,13 @@ export const TransactionRow = ({ name, category, date, amount, icon }: Transacti
     name: "Alert",
     category: "generic",
     description: "Displays a callout for user attention.",
+    controls: {
+      variant: {
+        type: "select",
+        options: ["default", "destructive"],
+        defaultValue: "default",
+      }
+    },
     code: `/* Code is dynamically served from API */`,
   },
   {
@@ -410,6 +465,20 @@ export const TransactionRow = ({ name, category, date, amount, icon }: Transacti
     name: "Slider",
     category: "generic",
     description: "An input where the user selects a value from within a given range.",
+    controls: {
+      disabled: {
+        type: "boolean",
+        defaultValue: false,
+      },
+      max: {
+        type: "number",
+        defaultValue: 100,
+      },
+      step: {
+        type: "number",
+        defaultValue: 1,
+      }
+    },
     code: `/* Code is dynamically served from API */`,
   },
   {
